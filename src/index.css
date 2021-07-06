@@ -12,28 +12,21 @@ code {
     monospace;
 }
 
-footer ul {
-  list-style: none;
-  padding-left: 0;
-}
+/* Jumbotron */
 
-footer ul li {
-  padding-left: 0;
-}
-
-footer ul li a:hover {
-  color: white !important;
-}
-
-div.jumbotron .container > div {
+div.jumbotron .container > .row div {
   background-color: rgba(255, 255, 255, 0.4);
   color: rgb(0, 0, 0);
   text-shadow: 1px 1px 0px rgb(105, 105, 105);
+  padding: 1rem;
+  border-radius: 0.8rem;
 }
 
 div.jumbotron {
   background-image: url(./assets/images/jumbotron-image.jpg);
 }
+
+/* Cards */
 
 div.card img {
   object-fit: cover;
@@ -46,4 +39,19 @@ div.card .card-title {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* footer */
+
+footer ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+footer ul li {
+  padding-left: 0;
+}
+
+footer ul li a:hover {
+  color: white !important;
 }
