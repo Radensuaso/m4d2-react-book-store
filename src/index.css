@@ -24,3 +24,13 @@ footer ul li {
 footer ul li a:hover {
   color: white !important;
 }
+
+div.jumbotron .container {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 0px rgb(105, 105, 105);
+}
+
+div.jumbotron {
+  background-image: url(./assets/images/jumbotron-image.jpg);
+}
