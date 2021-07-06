@@ -1,13 +1,49 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+footer ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+footer ul li {
+  padding-left: 0;
+}
+
+footer ul li a:hover {
+  color: white !important;
+}
+
+div.jumbotron .container > div {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 0px rgb(105, 105, 105);
+}
+
+div.jumbotron {
+  background-image: url(./assets/images/jumbotron-image.jpg);
+}
+
+div.card img {
+  object-fit: cover;
+  width: 35rem;
+  height: 25rem;
+}
+
+div.card .card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
