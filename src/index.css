@@ -34,3 +34,16 @@ div.jumbotron .container > div {
 div.jumbotron {
   background-image: url(./assets/images/jumbotron-image.jpg);
 }
+
+div.card img {
+  object-fit: cover;
+  width: 35rem;
+  height: 25rem;
+}
+
+div.card .card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
