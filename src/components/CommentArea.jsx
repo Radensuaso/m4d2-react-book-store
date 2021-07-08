@@ -1,5 +1,6 @@
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
+import Loading from "./Loading"
 
 import React, { Component } from "react"
 
@@ -12,6 +13,8 @@ class CommentArea extends Component {
     },
 
     allComments: [],
+
+    loading: false,
   }
 
   /* component did mount */
@@ -19,9 +22,15 @@ class CommentArea extends Component {
     this.fetchComments()
   }
 
+  /* isLoading function */
+  isLoading = (loading) => {
+    this.setState({ loading: loading })
+  }
+
   /*fetch comments */
   fetchComments = async () => {
     try {
+      this.isLoading(true)
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/",
         {
@@ -36,6 +45,7 @@ class CommentArea extends Component {
 
       if (response.ok) {
         this.setState({ allComments: fetchedComments })
+        this.isLoading(false)
       } else {
         console.log("there was an error")
       }
@@ -158,26 +168,30 @@ class CommentArea extends Component {
           </form>
         </div>
         <div className="w-100">
-          {this.state.allComments
-            .filter((comment) => comment.elementId === this.props.book.asin)
-            .map((comment) => (
-              <div className="border rounded p-3 mt-4" key={comment._id}>
-                <p>
-                  <strong>Comment: </strong>
-                  {comment.comment}
-                </p>
-                <p>
-                  <strong>Rate: </strong>
-                  {comment.rate}
-                </p>
-                <Button
-                  onClick={() => this.deleteComment(comment._id)}
-                  variant="danger"
-                >
-                  <i className="bi bi-trash-fill"></i>
-                </Button>
-              </div>
-            ))}
+          {this.state.Loading ? (
+            <Loading />
+          ) : (
+            this.state.allComments
+              .filter((comment) => comment.elementId === this.props.book.asin)
+              .map((comment) => (
+                <div className="border rounded p-3 mt-4" key={comment._id}>
+                  <p>
+                    <strong>Comment: </strong>
+                    {comment.comment}
+                  </p>
+                  <p>
+                    <strong>Rate: </strong>
+                    {comment.rate}
+                  </p>
+                  <Button
+                    onClick={() => this.deleteComment(comment._id)}
+                    variant="danger"
+                  >
+                    <i className="bi bi-trash-fill"></i>
+                  </Button>
+                </div>
+              ))
+          )}
         </div>
       </div>
     )
