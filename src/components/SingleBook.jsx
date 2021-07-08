@@ -1,12 +1,19 @@
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
+import CommentArea from "./CommentArea"
 
 import React, { Component } from "react"
 
 class SingleBook extends Component {
+  state = {
+    selected: false,
+  }
   render() {
     return (
-      <Card>
+      <Card
+        className={"position-relative"}
+        onClick={() => this.setState({ selected: true })}
+      >
         <Card.Img
           variant="top"
           src={this.props.book.img}
@@ -19,6 +26,7 @@ class SingleBook extends Component {
           </Card.Text>
           <Button variant="success">€ {this.props.book.price}</Button>
         </Card.Body>
+        {this.state.selected && <CommentArea book={this.props.book} />}
       </Card>
     )
   }
