@@ -28,6 +28,10 @@ div.jumbotron {
 
 /* Cards */
 
+div.card {
+  cursor: pointer;
+}
+
 div.card img {
   object-fit: cover;
   width: 35rem;
@@ -44,22 +48,22 @@ div.card .card-title {
 /*comment area*/
 .comment-area {
   top: 0;
-  left: -20%;
-  right: -225%;
+  left: 0;
+  right: 0;
   border: 2px solid gray;
   background-color: white;
   z-index: 9;
 }
 
 .comment-area .comment-img-div {
-  width: 15rem;
-  height: 28rem;
+  width: 10rem;
+  height: 17rem;
 }
 
 .comment-area .comment-img-div img {
   object-fit: cover;
-  width: 35rem;
-  height: 25rem;
+  width: 10rem;
+  height: 17rem;
 }
 
 .comment-area h4 {

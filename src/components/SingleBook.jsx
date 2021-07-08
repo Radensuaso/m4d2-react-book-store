@@ -8,6 +8,7 @@ class SingleBook extends Component {
   state = {
     selected: false,
   }
+
   render() {
     return (
       <Card
