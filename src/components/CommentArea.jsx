@@ -26,6 +26,7 @@ class CommentArea extends Component {
   /* component did mount */
   componentDidMount = () => {
     this.fetchComments()
+    console.log(this.props)
   }
 
   /*fetch comments */
@@ -85,10 +86,16 @@ class CommentArea extends Component {
         })
         this.fetchComments()
       } else {
-        this.setState({ submitted: { ...this.state.submitted, fail: true } })
+        this.setState({
+          submitted: { ...this.state.submitted, fail: true },
+          submitIsLoading: false,
+        })
       }
     } catch (error) {
-      this.setState({ submitted: { ...this.state.submitted, fail: true } })
+      this.setState({
+        submitted: { ...this.state.submitted, fail: true },
+        submitIsLoading: false,
+      })
     }
   }
 
@@ -130,7 +137,10 @@ class CommentArea extends Component {
   render() {
     return (
       <div className="comment-area d-flex flex-column align-items-center p-4 position-absolute">
-        <div className="align-self-end text-danger">
+        <div
+          onClick={this.props.changeSelected}
+          className="align-self-end text-danger"
+        >
           <i className="bi bi-x-circle-fill"></i>
         </div>
         <div className="comment-img-div mt-3">
