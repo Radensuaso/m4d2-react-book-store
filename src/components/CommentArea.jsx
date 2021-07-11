@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import LoadingSpinner from "./LoadingSpinner"
 import Alert from "react-bootstrap/Alert"
+import { FaTrash } from "react-icons/fa"
 
 class CommentArea extends Component {
   state = {
@@ -137,19 +138,6 @@ class CommentArea extends Component {
   render() {
     return (
       <div className="comment-area d-flex flex-column align-items-center p-4 position-absolute">
-        <div
-          onClick={this.props.changeSelected}
-          className="align-self-end text-danger"
-        >
-          <i className="bi bi-x-circle-fill"></i>
-        </div>
-        <div className="comment-img-div mt-3">
-          <img
-            className="img-fluid"
-            src={this.props.book.img}
-            alt={this.props.book.title + "cover picture"}
-          />
-        </div>
         <div>
           <h4 className="my-4">{this.props.book.title}</h4>
 
@@ -223,7 +211,7 @@ class CommentArea extends Component {
                     onClick={() => this.deleteComment(comment._id)}
                     variant="danger"
                   >
-                    <i className="bi bi-trash-fill"></i>
+                    <FaTrash />
                   </Button>
                 </div>
               ))

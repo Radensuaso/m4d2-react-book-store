@@ -47,10 +47,13 @@ div.card .card-title {
 
 /*comment area*/
 .comment-area {
-  top: 0;
+  box-sizing: border-box;
+  top: 69%;
   left: 0;
   right: 0;
-  border: 2px solid gray;
+  border-left: 4px solid rgb(223, 108, 31);
+  border-right: 4px solid rgb(223, 108, 31);
+  border-bottom: 4px solid rgb(223, 108, 31);
   background-color: white;
   z-index: 9;
 }
