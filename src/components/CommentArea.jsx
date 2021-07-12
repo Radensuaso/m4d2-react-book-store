@@ -15,7 +15,7 @@ class CommentArea extends Component {
       elementId: "",
     },
 
-    initialCommentState: "",
+    initialCommentState: false,
     allComments: [],
 
     getIsLoading: false,
@@ -90,7 +90,7 @@ class CommentArea extends Component {
           },
           submitted: { ...this.state.submitted, success: true },
           submitIsLoading: false,
-          initialCommentState: this.state.initialCommentState + ":)",
+          initialCommentState: !this.state.initialCommentState,
         })
       } else {
         this.setState({
@@ -121,7 +121,7 @@ class CommentArea extends Component {
       )
       if (response.ok) {
         this.setState({
-          initialCommentState: this.state.initialCommentState + ":)",
+          initialCommentState: !this.state.initialCommentState,
         })
       } else {
         this.setState({ error: true })
