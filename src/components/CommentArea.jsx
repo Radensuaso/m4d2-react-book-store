@@ -15,14 +15,12 @@ class CommentArea extends Component {
       elementId: "",
     },
 
+    initialCommentState: "",
     allComments: [],
 
     getIsLoading: false,
-
     getError: false,
-
     submitIsLoading: false,
-
     submitted: { success: false, fail: false },
   }
 
@@ -30,6 +28,13 @@ class CommentArea extends Component {
   componentDidMount = () => {
     this.fetchComments()
     console.log(this.props)
+  }
+
+  /* component did update */
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.initialCommentState !== this.state.initialCommentState) {
+      this.fetchComments()
+    }
   }
 
   /*fetch comments */
@@ -46,8 +51,8 @@ class CommentArea extends Component {
         }
       )
 
-      const fetchedComments = await response.json()
       if (response.ok) {
+        const fetchedComments = await response.json()
         this.setState({ allComments: fetchedComments, getIsLoading: false })
       } else {
         this.setState({ getError: true, getIsLoading: false })
@@ -86,8 +91,8 @@ class CommentArea extends Component {
           },
           submitted: { ...this.state.submitted, success: true },
           submitIsLoading: false,
+          initialCommentState: this.state.initialCommentState + ":)",
         })
-        this.fetchComments()
       } else {
         this.setState({
           submitted: { ...this.state.submitted, fail: true },
@@ -116,8 +121,9 @@ class CommentArea extends Component {
         }
       )
       if (response.ok) {
-        alert("The comment was deleted with success")
-        this.fetchComments()
+        this.setState({
+          initialCommentState: this.state.initialCommentState + ":)",
+        })
       } else {
         this.setState({ error: true })
       }
