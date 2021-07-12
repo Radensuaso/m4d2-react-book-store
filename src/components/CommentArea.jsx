@@ -31,11 +31,11 @@ class CommentArea extends Component {
   }
 
   /* component did update */
-  componentDidUpdate = (prevProps, prevState) => {
+  /* componentDidUpdate = (prevProps, prevState) => {
     if (prevState.initialCommentState !== this.state.initialCommentState) {
       this.fetchComments()
     }
-  }
+  } */
 
   /*fetch comments */
   fetchComments = async () => {

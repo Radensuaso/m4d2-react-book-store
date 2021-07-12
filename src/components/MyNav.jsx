@@ -15,7 +15,12 @@ const MyNav = (props) => {
             <Nav.Link href="#link">About</Nav.Link>
           </Nav>
           <Form inline>
-            <FormControl type="text" placeholder="Search" value={props.query} />
+            <FormControl
+              type="text"
+              placeholder="Search"
+              value={props.query}
+              onChange={props.setQuery}
+            />
           </Form>
         </Navbar.Collapse>
       </Container>
