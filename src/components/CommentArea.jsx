@@ -31,11 +31,11 @@ class CommentArea extends Component {
   }
 
   /* component did update */
-  /* componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (prevProps, prevState) => {
     if (prevState.initialCommentState !== this.state.initialCommentState) {
       this.fetchComments()
     }
-  } */
+  }
 
   /*fetch comments */
   fetchComments = async () => {
@@ -50,9 +50,8 @@ class CommentArea extends Component {
           },
         }
       )
-
+      const fetchedComments = await response.json()
       if (response.ok) {
-        const fetchedComments = await response.json()
         this.setState({ allComments: fetchedComments, getIsLoading: false })
       } else {
         this.setState({ getError: true, getIsLoading: false })
