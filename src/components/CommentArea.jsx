@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 import LoadingSpinner from "./LoadingSpinner"
 import Alert from "react-bootstrap/Alert"
 import { FaTrash } from "react-icons/fa"
@@ -138,85 +140,87 @@ class CommentArea extends Component {
   render() {
     return (
       <div className="comment-area d-flex flex-column align-items-center p-4 position-absolute">
-        <div>
+        <Row className="flex-sm-row-reverse">
           <h4 className="my-4">{this.props.book.title}</h4>
+          <Col xs={12} lg={6}>
+            <form onSubmit={(e) => this.handleSubmit(e)}>
+              <Form.Control
+                onChange={(e) =>
+                  this.handleStateComment(
+                    "comment",
+                    e.currentTarget.value,
+                    this.props.book.asin
+                  )
+                }
+                as="textarea"
+                rows={3}
+                placeholder="Add a comment!"
+                value={this.state.postComment.comment}
+              />
+              <Form.Control
+                onChange={(e) =>
+                  this.handleStateComment(
+                    "rate",
+                    e.currentTarget.value,
+                    this.props.book.asin
+                  )
+                }
+                className="my-2"
+                type="number"
+                placeholder="1 to 5 rate the book!"
+                value={this.state.postComment.rate}
+              />
+              <div className="d-flex align-items-center">
+                <Button className="my-2 mr-2" variant="success" type="submit">
+                  Submit
+                </Button>
+                {this.state.submitIsLoading && <LoadingSpinner />}
+              </div>
+            </form>
+            {this.state.submitted.success && (
+              <Alert variant="success">
+                Your comment was submitted with success!
+              </Alert>
+            )}
+            {this.state.submitted.fail && (
+              <Alert variant="danger">
+                Something went wrong with your submission.
+              </Alert>
+            )}
+          </Col>
 
-          <form onSubmit={(e) => this.handleSubmit(e)}>
-            <Form.Control
-              onChange={(e) =>
-                this.handleStateComment(
-                  "comment",
-                  e.currentTarget.value,
-                  this.props.book.asin
-                )
-              }
-              as="textarea"
-              rows={3}
-              placeholder="Add a comment!"
-              value={this.state.postComment.comment}
-            />
-            <Form.Control
-              onChange={(e) =>
-                this.handleStateComment(
-                  "rate",
-                  e.currentTarget.value,
-                  this.props.book.asin
-                )
-              }
-              className="my-2"
-              type="number"
-              placeholder="1 to 5 rate the book!"
-              value={this.state.postComment.rate}
-            />
-            <div className="d-flex align-items-center">
-              <Button className="my-2 mr-2" variant="success" type="submit">
-                Submit
-              </Button>
-              {this.state.submitIsLoading && <LoadingSpinner />}
-            </div>
-          </form>
-          {this.state.submitted.success && (
-            <Alert variant="success">
-              Your comment was submitted with success!
-            </Alert>
-          )}
-          {this.state.submitted.fail && (
-            <Alert variant="danger">
-              Something went wrong with your submission.
-            </Alert>
-          )}
-        </div>
-        <div className="w-100 mt-4">
-          {this.state.getError && (
-            <Alert variant="danger">
-              Something went wrong on loading the book comments.
-            </Alert>
-          )}
-          {this.state.getIsLoading ? (
-            <LoadingSpinner className="mt-4" />
-          ) : (
-            this.state.allComments
-              .filter((comment) => comment.elementId === this.props.book.asin)
-              .map((comment) => (
-                <div className="border rounded p-3 mb-4" key={comment._id}>
-                  <p>
-                    <strong>Comment: </strong>
-                    {comment.comment}
-                  </p>
-                  <p>
-                    <strong>Rate: </strong>
-                    {comment.rate}
-                  </p>
-                  <Button
-                    onClick={() => this.deleteComment(comment._id)}
-                    variant="danger"
-                  >
-                    <FaTrash />
-                  </Button>
-                </div>
-              ))
-          )}
-        </div>
+          <Col xs={12} lg={6} className="w-100">
+            {this.state.getError && (
+              <Alert variant="danger">
+                Something went wrong on loading the book comments.
+              </Alert>
+            )}
+            {this.state.getIsLoading ? (
+              <LoadingSpinner className="mt-4" />
+            ) : (
+              this.state.allComments
+                .filter((comment) => comment.elementId === this.props.book.asin)
+                .map((comment) => (
+                  <div className="border rounded p-3 mb-4" key={comment._id}>
+                    <p>
+                      <strong>Comment: </strong>
+                      {comment.comment}
+                    </p>
+                    <p>
+                      <strong>Rate: </strong>
+                      {comment.rate}
+                    </p>
+                    <Button
+                      onClick={() => this.deleteComment(comment._id)}
+                      variant="danger"
+                    >
+                      <FaTrash />
+                    </Button>
+                  </div>
+                ))
+            )}
+          </Col>
+        </Row>
       </div>
     )
   }
