@@ -1,9 +1,9 @@
 /* Jumbotron */
 
 div.jumbotron .container > .row div {
-  background-color: rgba(255, 255, 255, 0.4);
-  color: rgb(0, 0, 0);
-  text-shadow: 1px 1px 0px rgb(105, 105, 105);
+  background-color: rgb(223 233 255 / 45%);
+  color: rgb(10 32 129);
+  text-shadow: 1px 1px 0px rgb(0 0 0);
   padding: 1rem;
   border-radius: 0.8rem;
 }
@@ -43,6 +43,7 @@ div.card .card-title {
     border-right: 4px solid rgb(223, 108, 31);
     border-bottom: 4px solid rgb(223, 108, 31);
     background-color: white;
+    border-radius: 10px;
     z-index: 9;
   }
 }
@@ -55,6 +56,7 @@ div.card .card-title {
     right: -50%;
     border: 4px solid rgb(223, 108, 31);
     background-color: white;
+    border-radius: 10px;
     z-index: 9;
   }
 }
