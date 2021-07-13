@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Row from "react-bootstrap/Row"
@@ -7,40 +7,25 @@ import LoadingSpinner from "./LoadingSpinner"
 import Alert from "react-bootstrap/Alert"
 import { FaTrash } from "react-icons/fa"
 
-class CommentArea extends Component {
-  state = {
-    postComment: {
-      comment: "",
-      rate: "",
-      elementId: "",
-    },
+const CommentArea = (props) => {
+  const [postComment, setPostComment] = useState({
+    comment: "",
+    rate: "",
+    elementId: "",
+  })
 
-    initialCommentState: false,
-    allComments: [],
+  const [initialCommentState, setInitialCommentState] = useState(false)
+  const [allComments, setAllComments] = useState([])
 
-    getIsLoading: false,
-    getError: false,
-    submitIsLoading: false,
-    submitted: { success: false, fail: false },
-  }
-
-  /* component did mount */
-  componentDidMount = () => {
-    this.fetchComments()
-    console.log(this.props)
-  }
-
-  /* component did update */
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.initialCommentState !== this.state.initialCommentState) {
-      this.fetchComments()
-    }
-  }
+  const [getIsLoading, setGetIsLoading] = useState(false)
+  const [getError, setGetError] = useState(false)
+  const [submitIsLoading, setSubmitIsLoading] = useState(false)
+  const [submitted, setSubmitted] = useState({ success: false, fail: false })
 
   /*fetch comments */
-  fetchComments = async () => {
+  const fetchComments = async () => {
     try {
-      this.setState({ getIsLoading: true })
+      setGetIsLoading(true)
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/",
         {
@@ -52,21 +37,24 @@ class CommentArea extends Component {
       )
       const fetchedComments = await response.json()
       if (response.ok) {
-        this.setState({ allComments: fetchedComments, getIsLoading: false })
+        setAllComments(fetchedComments)
+        setGetIsLoading(false)
       } else {
-        this.setState({ getError: true, getIsLoading: false })
+        setGetIsLoading(false)
+        setGetError(true)
       }
     } catch (error) {
-      this.setState({ getError: true, getIsLoading: false })
+      setGetIsLoading(false)
+      setGetError(true)
     }
   }
 
   /* Function to handle the submit */
 
-  handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      this.setState({ submitIsLoading: true })
+      setSubmitIsLoading(true)
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/",
         {
@@ -82,32 +70,22 @@ class CommentArea extends Component {
       )
 
       if (response.ok) {
-        this.setState({
-          postComment: {
-            comment: "",
-            rate: "",
-            elementId: "",
-          },
-          submitted: { ...this.state.submitted, success: true },
-          submitIsLoading: false,
-          initialCommentState: !this.state.initialCommentState,
-        })
+        setPostComment({ comment: "", rate: "", elementId: "" })
+        setSubmitted({ ...submitted, success: true })
+        setGetIsLoading(false)
+        setInitialCommentState(!initialCommentState)
       } else {
-        this.setState({
-          submitted: { ...this.state.submitted, fail: true },
-          submitIsLoading: false,
-        })
+        setSubmitted({ ...submitted, fail: true })
+        setSubmitIsLoading(false)
       }
     } catch (error) {
-      this.setState({
-        submitted: { ...this.state.submitted, fail: true },
-        submitIsLoading: false,
-      })
+      setSubmitted({ ...submitted, fail: true })
+      setSubmitIsLoading(false)
     }
   }
 
   /*Function to delete comment from the api */
-  deleteComment = async (commentId) => {
+  const deleteComment = async (commentId) => {
     try {
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/" + commentId,
@@ -120,115 +98,113 @@ class CommentArea extends Component {
         }
       )
       if (response.ok) {
-        this.setState({
-          initialCommentState: !this.state.initialCommentState,
-        })
+        setInitialCommentState(!initialCommentState)
       } else {
-        this.setState({ error: true })
+        alert("Some error ocurred in deleting your comment.")
       }
     } catch (error) {
-      this.setState({ error: true })
+      alert("Some error ocurred in deleting your comment.")
     }
   }
 
   /* function to handle the state */
-  handleStateComment = (commentRate, value, id) => {
-    this.setState({
-      postComment: {
-        ...this.state.postComment,
-        [commentRate]: value,
-        elementId: id,
-      },
-    })
+  const handleStateComment = (commentRate, value, id) => {
+    setPostComment({ ...postComment, [commentRate]: value, elementId: id })
   }
 
-  render() {
-    return (
-      <div className="comment-area d-flex flex-column align-items-center p-4 position-absolute">
-        <Row className="flex-sm-row-reverse">
-          <h4 className="my-4">{this.props.book.title}</h4>
-          <Col xs={12} lg={6}>
-            <form onSubmit={(e) => this.handleSubmit(e)}>
-              <Form.Control
-                onChange={(e) =>
-                  this.handleStateComment(
-                    "comment",
-                    e.currentTarget.value,
-                    this.props.book.asin
-                  )
-                }
-                as="textarea"
-                rows={3}
-                placeholder="Add a comment!"
-                value={this.state.postComment.comment}
-              />
-              <Form.Control
-                onChange={(e) =>
-                  this.handleStateComment(
-                    "rate",
-                    e.currentTarget.value,
-                    this.props.book.asin
-                  )
-                }
-                className="my-2"
-                type="number"
-                placeholder="1 to 5 rate the book!"
-                value={this.state.postComment.rate}
-              />
-              <div className="d-flex align-items-center">
-                <Button className="my-2 mr-2" variant="success" type="submit">
-                  Submit
-                </Button>
-                {this.state.submitIsLoading && <LoadingSpinner />}
-              </div>
-            </form>
-            {this.state.submitted.success && (
-              <Alert variant="success">
-                Your comment was submitted with success!
-              </Alert>
-            )}
-            {this.state.submitted.fail && (
-              <Alert variant="danger">
-                Something went wrong with your submission.
-              </Alert>
-            )}
-          </Col>
+  /* component did mount */
+  useEffect(() => fetchComments(), [])
 
-          <Col xs={12} lg={6} className="w-100">
-            {this.state.getError && (
-              <Alert variant="danger">
-                Something went wrong on loading the book comments.
-              </Alert>
-            )}
-            {this.state.getIsLoading ? (
-              <LoadingSpinner className="mt-4" />
-            ) : (
-              this.state.allComments
-                .filter((comment) => comment.elementId === this.props.book.asin)
-                .map((comment) => (
-                  <div className="border rounded p-3 mb-4" key={comment._id}>
-                    <p>
-                      <strong>Comment: </strong>
-                      {comment.comment}
-                    </p>
-                    <p>
-                      <strong>Rate: </strong>
-                      {comment.rate}
-                    </p>
-                    <Button
-                      onClick={() => this.deleteComment(comment._id)}
-                      variant="danger"
-                    >
-                      <FaTrash />
-                    </Button>
-                  </div>
-                ))
-            )}
-          </Col>
-        </Row>
-      </div>
-    )
-  }
+  /* component did update */
+  useEffect(() => {
+    fetchComments()
+  }, [initialCommentState])
+
+  return (
+    <div className="comment-area d-flex flex-column align-items-center p-4 position-absolute">
+      <Row className="flex-sm-row-reverse">
+        <h4 className="my-4">{props.book.title}</h4>
+        <Col xs={12} lg={6}>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Control
+              onChange={(e) =>
+                handleStateComment(
+                  "comment",
+                  e.currentTarget.value,
+                  props.book.asin
+                )
+              }
+              as="textarea"
+              rows={3}
+              placeholder="Add a comment!"
+              value={postComment.comment}
+            />
+            <Form.Control
+              onChange={(e) =>
+                handleStateComment(
+                  "rate",
+                  e.currentTarget.value,
+                  props.book.asin
+                )
+              }
+              className="my-2"
+              type="number"
+              placeholder="1 to 5 rate the book!"
+              value={postComment.rate}
+            />
+            <div className="d-flex align-items-center">
+              <Button className="my-2 mr-2" variant="success" type="submit">
+                Submit
+              </Button>
+              {submitIsLoading && <LoadingSpinner />}
+            </div>
+          </form>
+          {submitted.success && (
+            <Alert variant="success">
+              Your comment was submitted with success!
+            </Alert>
+          )}
+          {submitted.fail && (
+            <Alert variant="danger">
+              Something went wrong with your submission.
+            </Alert>
+          )}
+        </Col>
+
+        <Col xs={12} lg={6} className="w-100">
+          {getError && (
+            <Alert variant="danger">
+              Something went wrong on loading the book comments.
+            </Alert>
+          )}
+          {getIsLoading ? (
+            <LoadingSpinner className="mt-4" />
+          ) : (
+            allComments
+              .filter((comment) => comment.elementId === props.book.asin)
+              .map((comment) => (
+                <div className="border rounded p-3 mb-4" key={comment._id}>
+                  <p>
+                    <strong>Comment: </strong>
+                    {comment.comment}
+                  </p>
+                  <p>
+                    <strong>Rate: </strong>
+                    {comment.rate}
+                  </p>
+                  <Button
+                    onClick={() => deleteComment(comment._id)}
+                    variant="danger"
+                  >
+                    <FaTrash />
+                  </Button>
+                </div>
+              ))
+          )}
+        </Col>
+      </Row>
+    </div>
+  )
 }
 
 export default CommentArea
