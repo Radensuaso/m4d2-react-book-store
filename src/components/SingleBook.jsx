@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
 import CommentArea from "./CommentArea"
 import React, { useState } from "react"
+import MyBadge from "./MyBadge"
 
 const SingleBook = (props) => {
   const [selected, setSelected] = useState(false)
@@ -24,7 +24,7 @@ const SingleBook = (props) => {
         <Card.Text>
           <strong>Category: </strong> {props.book.category}
         </Card.Text>
-        <Button variant="success">€ {props.book.price}</Button>
+        <MyBadge text={"€ " + props.book.price} />
       </Card.Body>
       {selected && (
         <CommentArea

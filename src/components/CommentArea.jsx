@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react"
-import Form from "react-bootstrap/Form"
-import Button from "react-bootstrap/Button"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import LoadingSpinner from "./LoadingSpinner"
-import Alert from "react-bootstrap/Alert"
-import { FaTrash } from "react-icons/fa"
+import AddComment from "./AddComment"
+import MyAlert from "./MyAlert"
+import CommentList from "./CommentList"
 
 const CommentArea = (props) => {
+  /* Set state of the component */
   const [postComment, setPostComment] = useState({
     comment: "",
     rate: "",
     elementId: "",
   })
-
   const [initialCommentState, setInitialCommentState] = useState(false)
   const [allComments, setAllComments] = useState([])
-
   const [getIsLoading, setGetIsLoading] = useState(false)
   const [getError, setGetError] = useState(false)
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
@@ -126,57 +124,33 @@ const CommentArea = (props) => {
       <Row className="flex-sm-row-reverse">
         <h4 className="my-4">{props.book.title}</h4>
         <Col xs={12} lg={6}>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Control
-              onChange={(e) =>
-                handleStateComment(
-                  "comment",
-                  e.currentTarget.value,
-                  props.book.asin
-                )
-              }
-              as="textarea"
-              rows={3}
-              placeholder="Add a comment!"
-              value={postComment.comment}
-            />
-            <Form.Control
-              onChange={(e) =>
-                handleStateComment(
-                  "rate",
-                  e.currentTarget.value,
-                  props.book.asin
-                )
-              }
-              className="my-2"
-              type="number"
-              placeholder="1 to 5 rate the book!"
-              value={postComment.rate}
-            />
-            <div className="d-flex align-items-center">
-              <Button className="my-2 mr-2" variant="success" type="submit">
-                Submit
-              </Button>
-              {submitIsLoading && <LoadingSpinner />}
-            </div>
-          </form>
+          <AddComment
+            handleSubmit={handleSubmit}
+            handleStateComment={handleStateComment}
+            postComment={postComment}
+            submitIsLoading={submitIsLoading}
+            book={props.book}
+          />
           {submitted.success && (
-            <Alert variant="success">
-              Your comment was submitted with success!
-            </Alert>
+            <MyAlert
+              variant={"success"}
+              text={"Your comment was submitted with success!"}
+            />
           )}
           {submitted.fail && (
-            <Alert variant="danger">
-              Something went wrong with your submission.
-            </Alert>
+            <MyAlert
+              variant={"danger"}
+              text={"Something went wrong with your submission."}
+            />
           )}
         </Col>
 
         <Col xs={12} lg={6} className="w-100">
           {getError && (
-            <Alert variant="danger">
-              Something went wrong on loading the book comments.
-            </Alert>
+            <MyAlert
+              variant={"danger"}
+              text={"Something went wrong on loading the book comments."}
+            />
           )}
           {getIsLoading ? (
             <LoadingSpinner className="mt-4" />
@@ -184,22 +158,11 @@ const CommentArea = (props) => {
             allComments
               .filter((comment) => comment.elementId === props.book.asin)
               .map((comment) => (
-                <div className="border rounded p-3 mb-4" key={comment._id}>
-                  <p>
-                    <strong>Comment: </strong>
-                    {comment.comment}
-                  </p>
-                  <p>
-                    <strong>Rate: </strong>
-                    {comment.rate}
-                  </p>
-                  <Button
-                    onClick={() => deleteComment(comment._id)}
-                    variant="danger"
-                  >
-                    <FaTrash />
-                  </Button>
-                </div>
+                <CommentList
+                  key={comment._id}
+                  comment={comment}
+                  deleteComment={deleteComment}
+                />
               ))
           )}
         </Col>
