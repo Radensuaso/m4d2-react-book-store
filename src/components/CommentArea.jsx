@@ -59,7 +59,7 @@ const CommentArea = (props) => {
         "https://striveschool-api.herokuapp.com/api/comments/",
         {
           method: "POST",
-          body: JSON.stringify(this.state.postComment),
+          body: JSON.stringify(postComment),
           headers: {
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjUwNTUzOTEsImV4cCI6MTYyNjI2NDk5MX0.4rreCWruc8iinYHIIdhbPTQo52bs9c82UeMWN-fKg0o",
@@ -74,6 +74,7 @@ const CommentArea = (props) => {
         setSubmitted({ ...submitted, success: true })
         setGetIsLoading(false)
         setInitialCommentState(!initialCommentState)
+        setSubmitIsLoading(false)
       } else {
         setSubmitted({ ...submitted, fail: true })
         setSubmitIsLoading(false)
