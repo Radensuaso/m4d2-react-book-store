@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
 const SuccessfulRegistration = (props) => {
+  console.log("I'm here")
   return (
     <Container id="register-container">
       <h1 className="text-center text-success">Registration Successful!</h1>

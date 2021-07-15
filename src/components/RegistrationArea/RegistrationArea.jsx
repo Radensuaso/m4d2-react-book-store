@@ -1,7 +1,7 @@
 import Register from "./Register"
 import SuccessfulRegistration from "./SuccessfulRegistration"
 import { useState } from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { Route } from "react-router-dom"
 
 const RegistrationArea = (props) => {
   const [inputs, setInputs] = useState({
@@ -11,8 +11,6 @@ const RegistrationArea = (props) => {
     password: "",
   })
 
-  const [submitted, setSubmitted] = useState(false)
-
   /* function to handle the change of input fields to the state */
   const handleInputChange = (input, value) => {
     setInputs({ ...inputs, [input]: value })
@@ -21,13 +19,12 @@ const RegistrationArea = (props) => {
   /* function to handle submit */
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    props.history.push("/register/success")
+    props.history.push("/registration/success")
   }
   return (
-    <Router>
+    <>
       <Route
-        path="/register"
+        path="/registration"
         exact
         render={(routerProps) => (
           <Register
@@ -38,16 +35,15 @@ const RegistrationArea = (props) => {
           />
         )}
       />
-      {submitted && (
-        <Route
-          path="/register/success"
-          exact
-          render={(routerProps) => (
-            <SuccessfulRegistration {...routerProps} inputs={inputs} />
-          )}
-        />
-      )}
-    </Router>
+
+      <Route
+        path="/registration/success"
+        exact
+        render={(routerProps) => (
+          <SuccessfulRegistration {...routerProps} inputs={inputs} />
+        )}
+      />
+    </>
   )
 }
 

@@ -19,7 +19,7 @@ const Register = (props) => {
                 }
                 value={props.inputs.name}
                 title="Please insert at least 2 chars."
-                pattern="{2}"
+                pattern=".{2,}"
                 type="text"
                 placeholder="Enter Name"
                 required
@@ -34,7 +34,7 @@ const Register = (props) => {
                 }
                 value={props.inputs.surname}
                 title="Please insert at least 3 chars."
-                pattern="{3}"
+                pattern=".{3,}"
                 type="text"
                 placeholder="Enter Surname"
                 required

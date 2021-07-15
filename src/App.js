@@ -30,7 +30,7 @@ const App = () => {
             />
           )}
         />
-        <Route path="/register" exact component={RegistrationArea} />
+        <Route path="/registration" component={RegistrationArea} />
         <MyFooter />
       </div>
     </Router>

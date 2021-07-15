@@ -22,11 +22,11 @@ const MyNav = (props) => {
             </Link>
             <Link
               className={
-                props.location.pathname === "/register"
+                props.location.pathname === "/registration"
                   ? "nav-link active"
                   : "nav-link"
               }
-              to="/Register"
+              to="/registration"
             >
               Register
             </Link>
