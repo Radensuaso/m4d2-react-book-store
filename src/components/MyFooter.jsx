@@ -1,4 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap"
+import { withRouter } from "react-router-dom"
 
 const MyFooter = () => (
   <footer className="bg-dark pt-4">
@@ -53,4 +54,4 @@ const MyFooter = () => (
   </footer>
 )
 
-export default MyFooter
+export default withRouter(MyFooter)

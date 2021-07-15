@@ -79,7 +79,15 @@ div.card .card-title {
   overflow: hidden;
 }
 
+/* Register section */
+#register-container {
+  height: 60vh;
+}
+
 /* footer */
+footer {
+  height: 40vh;
+}
 
 footer ul {
   list-style: none;

@@ -1,18 +1,35 @@
 import { Container, Navbar, Nav, Form, FormControl } from "react-bootstrap"
 import { BsBookHalf } from "react-icons/bs"
+import { withRouter, Link } from "react-router-dom"
 
 const MyNav = (props) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">
+        <Link to="/" className="navbar-brand">
           <BsBookHalf /> StriveBooks
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">About</Nav.Link>
+            <Link
+              className={
+                props.location.pathname === "/" ? "nav-link active" : "nav-link"
+              }
+              to="/"
+            >
+              Home
+            </Link>
+            <Link
+              className={
+                props.location.pathname === "/Register"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+              to="/Register"
+            >
+              Register
+            </Link>
           </Nav>
           <Form inline>
             <FormControl
@@ -28,4 +45,4 @@ const MyNav = (props) => {
   )
 }
 
-export default MyNav
+export default withRouter(MyNav)

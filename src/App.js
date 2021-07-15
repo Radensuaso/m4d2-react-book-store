@@ -5,17 +5,35 @@ import MyJumbotron from "./components/MyJumbotron"
 import LatestReleases from "./components/LatestReleases"
 import React, { useState } from "react"
 import fantasyBooks from "./data/fantasy.json"
+import Register from "./components/Register"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const App = () => {
   const [query, setQuery] = useState("")
 
   return (
-    <div className="App">
-      <MyNav query={query} setQuery={(e) => setQuery(e.currentTarget.value)} />
-      <MyJumbotron />
-      <LatestReleases query={query} books={fantasyBooks} />
-      <MyFooter />
-    </div>
+    <Router>
+      <div className="App">
+        <MyNav
+          query={query}
+          setQuery={(e) => setQuery(e.currentTarget.value)}
+        />
+        <Route path="/" component={MyJumbotron} />
+        <Route
+          path="/"
+          exact
+          render={(routerProps) => (
+            <LatestReleases
+              {...routerProps}
+              query={query}
+              books={fantasyBooks}
+            />
+          )}
+        />
+        <Route path="/Register" exact component={Register} />
+        <MyFooter />
+      </div>
+    </Router>
   )
 }
 
