@@ -5,7 +5,7 @@ import MyJumbotron from "./components/MyJumbotron"
 import LatestReleases from "./components/LatestReleases"
 import React, { useState } from "react"
 import fantasyBooks from "./data/fantasy.json"
-import Register from "./components/Register"
+import RegistrationArea from "./components/RegistrationArea/RegistrationArea"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
             />
           )}
         />
-        <Route path="/Register" exact component={Register} />
+        <Route path="/register" exact component={RegistrationArea} />
         <MyFooter />
       </div>
     </Router>
