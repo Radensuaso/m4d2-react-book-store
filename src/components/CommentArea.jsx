@@ -29,12 +29,12 @@ const CommentArea = (props) => {
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjUwNTUzOTEsImV4cCI6MTYyNjI2NDk5MX0.4rreCWruc8iinYHIIdhbPTQo52bs9c82UeMWN-fKg0o",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjYzMzgzNzEsImV4cCI6MTYyNzU0Nzk3MX0.7pTfqN5f_4hUQssto3rM5qFgf_BPpQRosWZj3H9QulE",
           },
         }
       )
-      const fetchedComments = await response.json()
       if (response.ok) {
+        const fetchedComments = await response.json()
         setAllComments(fetchedComments)
         setGetIsLoading(false)
       } else {
@@ -60,7 +60,7 @@ const CommentArea = (props) => {
           body: JSON.stringify(postComment),
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjUwNTUzOTEsImV4cCI6MTYyNjI2NDk5MX0.4rreCWruc8iinYHIIdhbPTQo52bs9c82UeMWN-fKg0o",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjYzMzgzNzEsImV4cCI6MTYyNzU0Nzk3MX0.7pTfqN5f_4hUQssto3rM5qFgf_BPpQRosWZj3H9QulE",
 
             "Content-Type": "application/json",
           },
@@ -92,7 +92,7 @@ const CommentArea = (props) => {
           method: "DELETE",
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjUwNTUzOTEsImV4cCI6MTYyNjI2NDk5MX0.4rreCWruc8iinYHIIdhbPTQo52bs9c82UeMWN-fKg0o",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNjA5ZmIzNTgxNzAwMTVjMjI3MGMiLCJpYXQiOjE2MjYzMzgzNzEsImV4cCI6MTYyNzU0Nzk3MX0.7pTfqN5f_4hUQssto3rM5qFgf_BPpQRosWZj3H9QulE",
           },
         }
       )
